@@ -187,6 +187,7 @@ void show_student(int len, student person)
     std::cout << '\n';
 }
 
+//Функция для четвёртого задания: выводятся данные студентов определённой группы
 void show_students_of_group(int len, student* students, int group)
 {
     std::cout << '\n';
@@ -213,6 +214,7 @@ void show_students_of_group(int len, student* students, int group)
     if (check == 0) std::cout << "There are not students in group " << group << '\n';
 }
 
+//Функция для пятого задания: выводятся данные лучших студентов (до трёх человек, в зависимости от количества человек в базе)
 void show_top_students(int len, student* students)
 {
     std::cout << '\n';
@@ -223,10 +225,12 @@ void show_top_students(int len, student* students)
     {
         results[i] = 0;
     }
+    //Вначале подсчитываются оценки всех студентов
     for (int i = 0; i < len; i++)
     {
         results[i] = students[i].summ_results();
     }
+    //Потом с помощью этих данных ищутся индексы студентов с максимальным баллом
     for (int i = 0; i < len; i++)
     {
         if (top_results[0] < results[i])
@@ -268,6 +272,7 @@ void show_top_students(int len, student* students)
     }
 }
 
+//Функция для шестого задания: выводит количество девушек и юношей
 void show_gender_stat(int len, student* students)
 {
     int number_m = 0;
@@ -281,6 +286,7 @@ void show_gender_stat(int len, student* students)
     std::cout << "Number of male students: " << number_m << '\n';
 }
 
+//Функция для седьмого задания: выводит количество студентов, получающих стипендию
 void show_students_with_scholarship(int len, student* students)
 {
     std::cout << '\n';
@@ -295,6 +301,7 @@ void show_students_with_scholarship(int len, student* students)
     std::cout << "Number of students with scholarship: " << number << '\n';
 }
 
+//Функция для восьмого задания
 void task_eight(int len, student* students)
 {
     std::cout << "Students without scholarship: \n";
@@ -356,6 +363,7 @@ void task_eight(int len, student* students)
     }
 }
 
+//Функция для девятого задания: выводит студентов под определённым номером
 void show_students_with_order(int len, student* students, int order)
 {
     std::cout << '\n';
@@ -382,6 +390,7 @@ void show_students_with_order(int len, student* students, int order)
     if (check == 0) std::cout << "There are not students with order " << order << '\n';
 }
 
+//Функция для десятого задания
 void show_students_in_time(int len, student* students, std::string time)
 {
     std::cout << '\n';
@@ -450,6 +459,7 @@ int main()
 {
     int n;
     int len_arr = 0;
+    //Переменные для временного хранения данных, которые будут передаваться в класс
     std::string name, surname, patronymic, fio;
     char gender;
     int group, number;
@@ -461,10 +471,15 @@ int main()
     student array[N];
     std::string form, time, weekday, month, day, hms, year;
     int hour;
+    //Структура "try-throw-catch" используется для отлова исключений
+    //В моей реализации она сообщает, в чём возникли проблемы: это помогает в тестировании, а также пользователь понимает, что он мог ввести некорректно
     try
     {
+        //Данные хранятся в файле "data.txt": при желании его можно сменить
         std::ifstream fin("data.txt");
         if (!fin.is_open()) throw "Check file: data.txt must exist";
+        //Все данные из файла сразу же переносятся в элементы массива
+        //Тут проверка не осуществляется, так что при внесении данных напрямую в файл следует быть осторожнее
         while(fin)
         {
             len_arr += 1;
@@ -493,6 +508,7 @@ int main()
             array[len_arr - 1].set_time(time);
             array[len_arr - 1].set_hour(time.substr(11, 2));
         }
+        //Файл открывается также и для записи, при том с конца файла (с помощью std::ios_base::app): это позволяет не перезаписывать уже имеющиеся данные
         std::ofstream fout("data.txt", std::ios_base::app);
         len_arr -= 1;
         std::cout << "Hello!\nWelcome to the base of students. What do you want to do?\n";
@@ -552,6 +568,7 @@ int main()
                 array[len_arr - 1].set_time(time);
                 array[len_arr - 1].set_hour(hms.substr(0, 1));
                 if (len_arr > 1) fout << '\n';
+                //После внесения данных в класс, данные записываются в файл: их можно будет использовать на этом и следующих запусках программы
                 fout << fio << '\n' << group << '\n' << number << '\n' << gender << '\n' << form << '\n';
                 fout << exam_result[0] << ' ' << exam_result[1] << ' ' << exam_result[2] << ' ' << dif_exam_result[0] << ' ' << dif_exam_result[1] << ' ' << dif_exam_result[2] << ' ' << dif_exam_result[3] << ' ' << dif_exam_result[4];
                 fout << '\n' << time;
