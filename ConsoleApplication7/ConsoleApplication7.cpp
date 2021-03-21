@@ -476,7 +476,7 @@ int main()
     try
     {
         //Данные хранятся в файле "data.txt": при желании его можно сменить
-        std::ifstream fin("data.txt");
+        std::ifstream fin("students.txt");
         if (!fin.is_open()) throw "Check file: data.txt must exist";
         //Все данные из файла сразу же переносятся в элементы массива
         //Тут проверка не осуществляется, так что при внесении данных напрямую в файл следует быть осторожнее
