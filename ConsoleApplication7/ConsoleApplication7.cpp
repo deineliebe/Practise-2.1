@@ -509,7 +509,7 @@ int main()
             array[len_arr - 1].set_hour(time.substr(11, 2));
         }
         //Файл открывается также и для записи, при том с конца файла (с помощью std::ios_base::app): это позволяет не перезаписывать уже имеющиеся данные
-        std::ofstream fout("data.txt", std::ios_base::app);
+        std::ofstream fout("students.txt", std::ios_base::app);
         len_arr -= 1;
         std::cout << "Hello!\nWelcome to the base of students. What do you want to do?\n";
         std::cout << "1. Add new student\n";
@@ -579,7 +579,7 @@ int main()
                 std::cout << "Write number of student (from 1 to " << len_arr << "): ";
                 std::cin >> task_number;
                 task_number--;
-                if (!std::cin or task_number < 1 or task_number > len_arr) throw "Invalid number of student";
+                if (!std::cin or task_number < 0 or task_number > len_arr - 1) throw "Invalid number of student";
                 std::cout << "If you would like to change name, write 1\n";
                 std::cout << "If you would like to change gender, write 2\n";
                 std::cout << "If you would like to change group number, write 3\n";
